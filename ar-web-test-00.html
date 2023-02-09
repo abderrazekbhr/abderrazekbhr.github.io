@@ -46,10 +46,12 @@
     
     <a-assets>
         <a-asset-item   id="dawri" src="dawri/scene.gltf"></a-asset-item>
-        <a-asset-item   id="dawri" src="hathmi/scene.gltf"></a-asset-item>
+        <a-asset-item   id="hathmi" src="hathmi/scene.gltf"></a-asset-item>
+        <a-asset-item   id="tanafossi" src="tanafossi/scene.gltf"></a-asset-item>
+        <a-asset-item   id="assabi" src="assabi/scene.gltf"></a-asset-item>
 	</a-assets>
     
-    <a-marker type="pattern" url="./marker0.patt">
+    <a-marker type="pattern" url="./markerA.patt">
         <a-entity   position="0 0 0" 
                     rotation="0 0 0"
                     class="objects"
@@ -58,12 +60,30 @@
         </a-entity>
     </a-marker>
 
-    <a-marker type="pattern" url="./marker0.patt">
+    <a-marker type="pattern" url="./markerB.patt">
         <a-entity   position="0 0 0" 
                     rotation="0 0 0"
                     class="objects"
                     scale="1 1 1"
-                    gltf-model="#dawri" >
+                    gltf-model="#hathmi" >
+        </a-entity>
+    </a-marker>
+    
+    <a-marker type="pattern" url="./markerB.patt">
+        <a-entity   position="0 0 0" 
+                    rotation="0 0 0"
+                    class="objects"
+                    scale="1 1 1"
+                    gltf-model="#tanafossi" >
+        </a-entity>
+    </a-marker>
+    
+    <a-marker type="pattern" url="./markerB.patt">
+        <a-entity   position="0 0 0" 
+                    rotation="0 0 0"
+                    class="objects"
+                    scale="1 1 1"
+                    gltf-model="#assabi" >
         </a-entity>
     </a-marker>
     
@@ -79,7 +99,7 @@
 
     function zoomOut(){
     obj.forEach(elt=>{
-        if(zoom>=0.4){
+        if(zoom>=0.6){
             zoom-=0.2
             elt.setAttribute('scale', {x: zoom, y: zoom, z: zoom});
             
@@ -90,7 +110,7 @@
     function zoomIn(){
     console.log(obj)
     obj.forEach(elt=>{
-        if(zoom<=1.8){
+        if(zoom<=2.8){
             zoom+=0.2
             elt.setAttribute('scale', {x: zoom, y: zoom, z: zoom});
             }
@@ -127,7 +147,7 @@
         position: absolute;
         width: 100%;
         height: 100%;
-        
+        left:0;
         top: 0;
         z-index: 9999;
         justify-content: center;
