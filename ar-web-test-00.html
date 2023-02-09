@@ -99,7 +99,7 @@
 
     function zoomOut(){
     obj.forEach(elt=>{
-        if(zoom>=0.4){
+        if(zoom>=0.6){
             zoom-=0.2
             elt.setAttribute('scale', {x: zoom, y: zoom, z: zoom});
             
@@ -110,7 +110,7 @@
     function zoomIn(){
     console.log(obj)
     obj.forEach(elt=>{
-        if(zoom<=1.8){
+        if(zoom<=2.8){
             zoom+=0.2
             elt.setAttribute('scale', {x: zoom, y: zoom, z: zoom});
             }
