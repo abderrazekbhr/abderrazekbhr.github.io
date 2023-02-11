@@ -14,14 +14,13 @@
                 <div class="btn-group position-absolute bottom-0 start-50 translate-middle-x mb-2" role="group" aria-label="Basic example">
         
                     <button type="button" class="btn" onclick="rotationZ()" style="background-color: #0e9aa7 ;">
-                        <span class="material-symbols-outlined" style="color: whitesmoke;">
-                            360
-                        </span>
+                        X
                     </button>
                     <button type="button" class="btn" onclick="rotationX()" style="background-color:#3da4ab;">
-                        <span class="material-symbols-outlined" style="color: whitesmoke;">
-                            rotate_left
-                        </span>
+                        Y
+                    </button>
+                    <button type="button" class="btn zoom-in" onclick="zoomIn()" style="background-color:#00aa80 ;">
+                        Z
                     </button>
                     <button type="button" class="btn zoom-in" onclick="zoomIn()" style="background-color:#00aa80 ;">
                         <span class="material-symbols-outlined" style="color: whitesmoke;">
@@ -44,24 +43,24 @@
         <a-scene embedded vr-mode-ui="enabled: false;" arjs="debugUIEnabled: false;">
         
         <a-assets>
-            <!-- <a-asset-item   id="dawri" src="dawri/scene.gltf"></a-asset-item> -->
-            <!-- <a-asset-item   id="hathmi" src="hathmi/scene.gltf"></a-asset-item> -->
-            <!-- <a-asset-item   id="tanafossi" src="tanafossi/scene.gltf"></a-asset-item> -->
-            <!-- <a-asset-item   id="assabi" src="assabi/scene.gltf"></a-asset-item> -->
-            <!-- <a-asset-item   id="athali" src="athali/scene.gltf"></a-asset-item>
-            <a-asset-item   id="haykal" src="haykal/scene.gltf"></a-asset-item> -->
+            <a-asset-item   id="dawri" src="dawri/scene.gltf"></a-asset-item>
+            <a-asset-item   id="hathmi" src="hathmi/scene.gltf"></a-asset-item>
+            <a-asset-item   id="tanafossi" src="tanafossi/scene.gltf"></a-asset-item>
+            <a-asset-item   id="assabi" src="assabi/scene.gltf"></a-asset-item>
+            <a-asset-item   id="athali" src="athali/scene.gltf"></a-asset-item>
+            <a-asset-item   id="haykal" src="haykal/scene.gltf"></a-asset-item>
         </a-assets>
         
-        <!-- <a-marker mar type="pattern" url="markerA.patt">
+        <a-marker mar type="pattern" url="markerA.patt">
             <a-entity   position="0 0 0" 
                         rotation="0 0 0"
                         class="objects"
                         scale="1 1 1"
                         gltf-model="#dawri" >
             </a-entity>
-        </a-marker> -->
+        </a-marker>
 
-        <!-- <a-marker type="pattern" url="markerB.patt">
+        <a-marker type="pattern" url="markerB.patt">
             <a-entity   position="0 0 0" 
                         rotation="0 0 0"
                         class="objects"
@@ -69,8 +68,8 @@
                         gltf-model="#hathmi" >
             </a-entity>
         </a-marker>
-         -->
-        <!-- <a-marker type="pattern" url="markerC.patt">
+        
+        <a-marker type="pattern" url="markerC.patt">
             <a-entity   position="0 0 0" 
                         rotation="0 0 0"
                         class="objects"
@@ -78,25 +77,25 @@
                         gltf-model="#tanafossi" >
             </a-entity>
         </a-marker>
-         -->
-        <!-- <a-marker type="pattern" url="markerD.patt">
+        
+        <a-marker type="pattern" url="markerD.patt">
             <a-entity   position="0 0 0" 
                         rotation="0 0 0"
                         class="objects"
                         scale="1 1 1"
                         gltf-model="#assabi" >
             </a-entity>
-        </a-marker> -->
+        </a-marker>
 
         
-            <!-- <a-marker type="pattern" url="markerF.patt">
-                <a-entity   position="0 0 0" 
-                            rotation="0 0 0"
-                            class="objects"
-                            scale="1 1 1"
-                            gltf-model="#athali" >
-                </a-entity>
-            </a-marker>
+        <a-marker type="pattern" url="markerF.patt">
+            <a-entity   position="0 0 0" 
+                        rotation="0 0 0"
+                        class="objects"
+                        scale="1 1 1"
+                        gltf-model="#athali" >
+            </a-entity>
+        </a-marker>
 
 
         <a-marker type="pattern" url="markerG.patt">
@@ -107,7 +106,7 @@
                         gltf-model="#haykal" >
             </a-entity>
 
-        </a-marker> -->
+        </a-marker>
         
         <a-entity camera></a-entity>
         
@@ -117,6 +116,7 @@
         let zoom=0.1;
         let rz=0;
         let rx=0;
+        let ry=0;
         const obj=document.querySelectorAll(".objects");
 
         function zoomOut(){
@@ -140,12 +140,19 @@
         }
 
         function rotationX(){
-        obj.forEach(elt=>{
-            rx+=10
-            elt.setAttribute('rotation', {x: rx, y: rx, z: rx});
-                
-            })
+        setInterval(
+            ()=>{
+                obj.forEach(elt=>{
+                rx+=10
+                rx%=360
+                elt.setAttribute('rotation', {x: rx, y: rx, z: rx});
+                })
+            }
+            ,10000
+        )
+            
         }
+
         function rotationZ(){
         obj.forEach(elt=>{
             rz+=10
