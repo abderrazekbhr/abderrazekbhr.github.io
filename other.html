@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Three.js GLTF Loader Example</title>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.149.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.149.0/examples/jsm/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <script type="module">
+      import * as THREE from 'three';
+      import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+      import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+      var scene = new THREE.Scene();
+      var camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 0.1, 1000);
+      var controls = new OrbitControls(camera, document.body); // mouse control
+      controls.autoRotate = true;
+
+      var renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+
+      var textureLoader = new THREE.TextureLoader();
+      textureLoader.crossOrigin = true;
+
+      var geometry = new THREE.OctahedronGeometry(1);
+
+      var mixer;
+
+      // add dragon model
+      const loader = new GLTFLoader();
+
+      loader.load(
+        'skeleton_dragon/scene.gltf',
+        function (gltf) {
+          gltf.scene.scale.set(10, 10, 10); // Adjust the scale as needed
+
+          scene.add(gltf.scene);
+
+          mixer = new THREE.AnimationMixer(gltf.scene);
+          console.log(gltf.animations);
+
+          // Assuming you want to play the first animation clip
+          var action = mixer.clipAction(gltf.animations[0]);
+          action.play();
+
+          // Play animation randomly every 1-10s.
+          setInterval(() => {
+            action.reset().play();
+          }, 1000);
+          render();
+        },
+        function (xhr) {
+          console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+        },
+        function (error) {
+          console.error(error);
+        }
+      );
+
+      camera.position.z = 100;
+
+      var render = function () {
+        requestAnimationFrame(render);
+        mixer && mixer.update(0.001);
+        controls.update();
+        renderer.render(scene, camera);
+      };
+      var light = new THREE.DirectionalLight(0xffffff, 0.5);
+      light.position.set(0, 0.5, 0);
+      scene.add(light);
+
+      var light = new THREE.DirectionalLight(0xffffff, 0.5);
+      light.position.set(0, -0.5, 0);
+      scene.add(light);
+
+      var light = new THREE.DirectionalLight(0xffffff, 0.5);
+      light.position.set(0.5, 0, 0);
+      scene.add(light);
+
+      var light = new THREE.DirectionalLight(0xffffff, 0.5);
+      light.position.set(0, 0, 0.5);
+      scene.add(light);
+
+      var light = new THREE.DirectionalLight(0xffffff, 0.5);
+      light.position.set(0, 0, -0.5);
+      scene.add(light);
+
+      var light = new THREE.DirectionalLight(0xfffffff, 0.5);
+      light.position.set(-0.5, 0, 0);
+      scene.add(light);
+
+      render();
+    </script>
+  </body>
+</html>
