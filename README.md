@@ -4,6 +4,8 @@
 - 🌱 I’m currently learning **Machine Learning and IA**
 
 - 📫 How to reach me **abderrazek.belhajrhouma@ensea.fr**
+<br>
+![snake gif](https://github.com/abderrazekbhr/abderrazekbhr/blob/output/github-contribution-grid-snake.svg)
 
 <h3 align="left">Connect with me:</h3>
 <p align="left">
